@@ -16,7 +16,7 @@ Paste links (single tracks or whole playlists/sets/albums) → pick a format →
 Open **Terminal** and paste:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Slover-69/sheep-mp3/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/nemcaya/sheep-mp3/main/install.sh | bash
 ```
 
 That's it. No Homebrew, no Xcode, no sudo — everything lives in your home
@@ -69,7 +69,7 @@ Browser dashboard (127.0.0.1:8765)
 ## Develop
 
 ```bash
-git clone https://github.com/Slover-69/sheep-mp3 && cd sheep-mp3
+git clone https://github.com/nemcaya/sheep-mp3 && cd sheep-mp3
 uv tool install --python 3.12 --force --reinstall .   # installs the real command from this checkout
 sheep-mp3 serve                                       # foreground server, frontend edits are live
 ```

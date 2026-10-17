@@ -1,7 +1,7 @@
 #!/bin/bash
 # 🐑 Sheep MP3 — one-time installer for macOS.
 #
-#   curl -fsSL https://raw.githubusercontent.com/Slover-69/sheep-mp3/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/nemcaya/sheep-mp3/main/install.sh | bash
 #
 # What it does (all inside your home folder, no sudo, no Homebrew, no Xcode):
 #   1. installs `uv` (tiny Python tool manager) into ~/.local/bin if missing
@@ -13,7 +13,7 @@
 # Re-running it later upgrades everything. Uninstall:  uv tool uninstall sheep-mp3
 set -euo pipefail
 
-TARBALL="${SHEEP_MP3_TARBALL:-https://github.com/Slover-69/sheep-mp3/archive/refs/heads/main.tar.gz}"
+TARBALL="${SHEEP_MP3_TARBALL:-https://github.com/nemcaya/sheep-mp3/archive/refs/heads/main.tar.gz}"
 PY_VERSION="${SHEEP_MP3_PYTHON:-3.12}"
 BIN_DIR="$HOME/.local/bin"
 APP_DIR="$HOME/Library/Application Support/SheepMP3"

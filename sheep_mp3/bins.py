@@ -28,7 +28,7 @@ from typing import Callable
 
 from . import config
 
-USER_AGENT = "sheep-mp3 (https://github.com/Slover-69/sheep-mp3)"
+USER_AGENT = "sheep-mp3 (https://github.com/nemcaya/sheep-mp3)"
 MIN_DENO = (2, 3, 0)
 
 _FALLBACK_DIRS = [Path("/opt/homebrew/bin"), Path("/usr/local/bin")]

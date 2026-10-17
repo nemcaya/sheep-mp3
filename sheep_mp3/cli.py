@@ -28,7 +28,7 @@ from pathlib import Path
 from . import __version__, bins, config
 
 SHEEP = "🐑"
-INSTALL_ONE_LINER = "curl -fsSL https://raw.githubusercontent.com/Slover-69/sheep-mp3/main/install.sh | bash"
+INSTALL_ONE_LINER = "curl -fsSL https://raw.githubusercontent.com/nemcaya/sheep-mp3/main/install.sh | bash"
 
 
 # ---- helpers -----------------------------------------------------------------
