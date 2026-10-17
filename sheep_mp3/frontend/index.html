@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sheep MP3 — cozy track downloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%91%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Reusable sheep mascot ------------------------------------------------ -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="sheep" viewBox="0 0 130 110">
+      <!-- soft ground shadow -->
+      <ellipse class="sheep-shadow" cx="60" cy="100" rx="34" ry="6" />
+      <!-- legs -->
+      <rect x="40" y="68" width="9" height="26" rx="4.5" fill="#5b5048" />
+      <rect x="68" y="68" width="9" height="26" rx="4.5" fill="#5b5048" />
+      <!-- wool depth -->
+      <g fill="#EDE4D3">
+        <circle cx="44" cy="60" r="17" /><circle cx="80" cy="58" r="16" />
+        <circle cx="62" cy="66" r="18" /><circle cx="58" cy="44" r="22" />
+      </g>
+      <!-- wool body -->
+      <g fill="#FBF7F0">
+        <circle cx="42" cy="44" r="16" /><circle cx="74" cy="40" r="17" />
+        <circle cx="80" cy="54" r="15" /><circle cx="40" cy="56" r="15" />
+        <circle cx="60" cy="62" r="17" /><circle cx="57" cy="46" r="23" />
+      </g>
+      <!-- face -->
+      <g class="sheep-face">
+        <ellipse cx="92" cy="48" rx="6" ry="10" fill="#322f2b" transform="rotate(-22 92 48)" />
+        <ellipse cx="108" cy="50" rx="6" ry="10" fill="#322f2b" transform="rotate(22 108 50)" />
+        <ellipse cx="100" cy="52" rx="15" ry="16.5" fill="#3E3A36" />
+        <circle cx="100" cy="36" r="6.5" fill="#FBF7F0" />
+        <circle cx="94" cy="50" r="3.6" fill="#fff" /><circle cx="106" cy="50" r="3.6" fill="#fff" />
+        <circle class="pupil" cx="95" cy="51" r="1.7" fill="#1b1a18" />
+        <circle class="pupil" cx="107" cy="51" r="1.7" fill="#1b1a18" />
+      </g>
+    </symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo-sheep"><use href="#sheep" /></svg>
+      <div class="brand-text">
+        <h1>Sheep&nbsp;MP3</h1>
+        <p class="tagline">Paste a link. Round up the track.</p>
+      </div>
+    </div>
+    <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <section class="card input-card">
+      <label class="field-label" for="links">Drop your links in the pasture <span>— one per line</span></label>
+      <textarea id="links" spellcheck="false" placeholder="https://youtube.com/watch?v=…
+https://open.spotify.com/track/…
+https://soundcloud.com/artist/track"></textarea>
+
+      <div class="controls">
+        <div class="seg" id="formatSeg" role="group" aria-label="Output format">
+          <button class="seg-opt active" data-fmt="mp3">MP3 320</button>
+          <button class="seg-opt" data-fmt="wav">WAV</button>
+        </div>
+        <button class="convert" id="convertBtn">
+          <span class="convert-label">Round&nbsp;’em&nbsp;up</span>
+          <svg class="convert-sheep"><use href="#sheep" /></svg>
+        </button>
+      </div>
+      <p class="hint" id="hint">Knows YouTube, Spotify &amp; SoundCloud on sight. Spotify links are matched &amp; fetched via YouTube.</p>
+    </section>
+
+    <section class="flock-wrap">
+      <div class="flock-head" id="flockHead" hidden>
+        <h2>The flock</h2>
+        <button class="text-btn" id="clearBtn">Clear finished</button>
+      </div>
+      <div class="flock" id="flock">
+        <div class="flock-empty" id="flockEmpty">
+          <svg class="empty-sheep"><use href="#sheep" /></svg>
+          <p>Nothing in the pasture yet.</p>
+          <span>Paste a link above and give it a herd.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <button class="pill-btn" id="revealBtn">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Open downloads folder
+    </button>
+    <span class="muted">Saved to <code id="outDir">~/Downloads/Sheep&nbsp;MP3</code></span>
+    <span class="muted engine" id="engine" title="Engine versions"></span>
+  </footer>
+
+  <!-- Settings drawer ------------------------------------------------------ -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" hidden aria-label="Settings">
+    <div class="drawer-head">
+      <h2>Settings</h2>
+      <button class="icon-btn" id="closeSettings" aria-label="Close">✕</button>
+    </div>
+    <label class="set-row">
+      <span>Save folder</span>
+      <input type="text" id="outDirInput" spellcheck="false" />
+    </label>
+    <label class="set-row switch-row">
+      <span>Play a soft “baa” when a track finishes</span>
+      <input type="checkbox" id="baaToggle" />
+    </label>
+    <label class="set-row switch-row">
+      <span>Use my browser’s cookies if YouTube asks to sign in</span>
+      <input type="checkbox" id="cookiesToggle" />
+    </label>
+    <label class="set-row">
+      <span>Browser to borrow cookies from</span>
+      <select id="cookiesBrowser">
+        <option value="chrome">Chrome</option>
+        <option value="safari">Safari</option>
+        <option value="firefox">Firefox</option>
+        <option value="brave">Brave</option>
+        <option value="edge">Edge</option>
+        <option value="chromium">Chromium</option>
+      </select>
+    </label>
+    <p class="set-note">Quality tops out at whatever the source serves (~128–256 kbps). MP3 320 is best for DJ gear; WAV is a bigger file, not better audio.</p>
+    <p class="set-note">YouTube changes often. If downloads start failing, open Terminal and run <code>sheep-mp3 update</code>.</p>
+    <button class="pill-btn solid" id="saveSettings">Save</button>
+    <div class="drawer-foot">
+      <button class="text-btn danger" id="quitBtn">Quit Sheep MP3 (stops the background server)</button>
+    </div>
+  </aside>
+
+  <script src="/app.js"></script>
+</body>
+</html>

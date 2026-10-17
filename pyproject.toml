@@ -1,0 +1,22 @@
+[project]
+name = "sheep-mp3"
+version = "2.0.1"
+description = "Cozy local web app that turns YouTube / SoundCloud / Spotify links into tagged MP3 320 or WAV files."
+readme = "README.md"
+requires-python = ">=3.10,<3.15"
+dependencies = [
+  "yt-dlp[default]>=2026.8.19",
+  "spotdl>=4.5.2",
+  "fastapi>=0.103",
+  "uvicorn[standard]>=0.23",
+]
+
+[project.scripts]
+sheep-mp3 = "sheep_mp3.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sheep_mp3"]
